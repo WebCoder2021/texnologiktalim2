@@ -1,0 +1,95 @@
+{% extends 'users/user_base.html' %}{% load i18n %}{% load static %}{% load custom_tags %}
+{% block head %}
+<title>So'rovnomalar</title>
+
+<style>
+    .info{
+        margin: 15px 0;
+    padding: 20px;
+    box-shadow: 2px 2px 7px #ccc;
+    background: #fff;
+    border-radius: 4px;
+    }
+    .res_progress span{
+        margin-right: 10px;
+    background: blue;
+    display: block;
+    height: 20px;
+    width: 10.56%;
+    border-radius: 18px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    }
+    .res_progress{
+        display: flex;
+        align-items: center;
+        margin: 10px 0 20px 0;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="card-body">
+    <h1>So'rovnomalar</h1>
+    <div class="infos">
+        {% for s in sorovnoma %}
+        <div class="info">
+
+            <div class="title">
+               <h2>{{ forloop.counter }}. {{s.title}}</h2> 
+            </div>
+            <h3>Jami ovoz berganlar: {{s.nums}} ta | Holat: {% if s.publish %} <span style="color: rgb(10, 207, 3);">Faol </span>{% else %}<span style="color: red;">Faol emas </span>{% endif %}</h3> <br>
+            <div class="results">
+                <div class="result">
+                    <p><b>{{s.ans1}}</b> - {{s.res1}} ta ovoz</p>
+                    <div class="res_progress">
+                        <span style="  width: {{s.res1|progress:s.nums}}%"></span><p>{{s.res1|progress:s.nums}}% </p>
+                    </div>
+                </div>
+                <div class="result">
+                    <p><b>{{s.ans2}}</b> - {{s.res2}} ta ovoz</p>
+                    <div class="res_progress">
+                        <span style="  width: {{s.res3|progress:s.nums}}%"></span><p>{{s.res3|progress:s.nums}}% </p>
+                    </div>
+                </div>
+                {% if s.ans3 %}
+                <div class="result">
+                    <p><b>{{s.ans3}}</b> - {{s.res3}} ta ovoz</p>
+                    <div class="res_progress">
+                        <span style=" width: {{s.res3|progress:s.nums}}%"></span><p>{{s.res3|progress:s.nums}}% </p>
+                    </div>
+                </div>
+                {% endif %}
+                {% if s.ans4 %}
+                <div class="result">
+                    <p><b>{{s.ans4}}</b> - {{s.res4}} ta ovoz</p>
+                    <div class="res_progress">
+                        <span style="  width: {{s.res4|progress:s.nums}}%"></span><p>{{s.res4|progress:s.nums}}% </p>
+                    </div>
+                </div>
+                {% endif %}
+                {% if s.ans5 %}
+                <div class="result">
+                    <p><b>{{s.ans5}}</b> - {{s.res5}} ta ovoz</p>
+                    <div class="res_progress">
+                        <span style=" width: {{s.res15|progress:s.nums}}%"></span><p>{{s.res6|progress:s.nums}}% </p>
+                    </div>
+                </div>
+                {% endif %}
+                {% if s.ans6 %}
+                <div class="result">
+                    <p><b>{{s.ans6}}</b> - {{s.res6}} ta ovoz</p>
+                    <div class="res_progress">
+                        <span style=" width: {{s.res6|progress:s.nums}}%"></span><p>{{s.res6|progress:s.nums}}%  </p>
+                        <p>{{s.res6}}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+
+{% endblock %}

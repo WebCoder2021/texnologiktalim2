@@ -1,0 +1,145 @@
+{% extends 'main.html' %}{% load static %}{% block head %}{% endblock %}{% block content %}
+			<!-- start banner Area -->
+			<section class="banner-area relative" id="home">	
+				<div class="overlay overlay-bg"></div>
+				<div class="container">				
+					<div class="row d-flex align-items-center justify-content-center">
+						<div class="about-content col-lg-12">
+							<h1 class="text-white">
+								Maqola haqida				
+							</h1>	
+							<p class="text-white link-nav"><a href="{% url 'home' %}">Bosh sahifa </a>  <span class="lnr lnr-arrow-right"></span><a href="{% url 'blog' %}">Maqolalalar </a> <span class="lnr lnr-arrow-right"></span> <a href="blog-single.html"> Blog Details Page</a></p>
+						</div>	
+					</div>
+				</div>
+			</section>
+			<!-- End banner Area -->					  
+			
+			<!-- Start post-content Area -->
+			<section class="post-content-area single-post-area">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8 posts-list">
+							<div class="single-post row">
+								<div class="col-lg-12">
+									<div class="feature-img">
+										<img class="img-fluid" src="img/blog/feature-img1.jpg" alt="">
+									</div>									
+								</div>
+								<div class="col-lg-3  col-md-3 meta-details">
+									<ul class="tags">
+										{% for tag in post.tags.all %}
+										<li><a href="#">{{tag}},</a></li>
+										{% endfor %}
+									</ul>
+									<div class="user-details row">
+										<p class="user-name col-lg-12 col-md-12 col-6"><a href="#">{{post.user.get_full_name}}</a> <span class="lnr lnr-user"></span></p>
+										<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.created|date:"d-m-Y H:i"}}</a> <span class="lnr lnr-calendar-full"></span></p>
+										<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{post.category}}</a> <span class="lnr lnr-book"></span></p>
+										<p class="comments col-lg-12 col-md-12 col-6"><a href="#">{{post.comments.count}} Izohlar</a> <span class="lnr lnr-bubble"></span></p>						
+									<ul class="social-links col-lg-12 col-md-12 col-6">
+											<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+											<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+											<li><a href="#"><i class="fa fa-github"></i></a></li>
+											<li><a href="#"><i class="fa fa-behance"></i></a></li>
+										</ul>																				
+									</div>
+								</div>
+								<div class="col-lg-9 col-md-9">
+									<h3 class="mt-20 mb-20">{{post.title}}</h3>
+									<p class="excert">
+										<div class="quotes">{{post.sub_title}}</div>
+									</p>
+									{% if post.url %}<a href="{{post.url}}" target="_blank" class="genric-btn success radius"><i class="fa-solid fa-book-open-reader"></i> O'qish</a>{% endif %}
+								</div>
+								<div class="col-lg-12">
+									<div class="row mt-30 mb-30">
+										{{post.content|safe}}
+									</div>
+								</div>
+							</div>
+							<div class="comments-area">
+								<h4>{{post.comments.count}} Izohlar</h4>
+								{% for cm in post.comments %}
+								<div class="comment-list">
+                                    <div class="single-comment justify-content-between d-flex">
+                                        <div class="user justify-content-between d-flex">
+                                            <div class="thumb">
+                                                <img src="{{cm.user.picture.url}}" alt="" style="    width: 80px;
+												height: 80px;
+												object-fit: cover;
+												border-radius: 10px;">
+                                            </div>
+                                            <div class="desc">
+                                                <h5><a href="#">{{cm.user.get_full_name}}</a></h5>
+                                                <p class="date">{{cm.created|date:"H:i d-m-Y"}} </p>
+                                                <p class="comment">
+                                                   {{cm.content}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+								{% endfor %}
+							</div>
+							{% if request.user.is_authenticated %}
+							<div class="comment-form">
+								<h4>Izoh qoldirish</h4>
+								<form method="POST"> {% csrf_token %}
+									<div class="form-group">
+										<textarea class="form-control mb-10" rows="5" name="comment" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
+									</div>
+									<button type="submit" class="genric-btn primary radius">Jo'natish</button>
+								</form>
+							</div>
+							{% endif %}
+						</div>
+						<div class="col-lg-4 sidebar-widgets">
+							<div class="widget-wrap">
+								<div class="single-sidebar-widget popular-post-widget">
+									<h4 class="popular-title">Mashhur maqolalar</h4>
+									<div class="popular-post-list">
+										{% for pp in  popular_posts %}
+										<div class="single-post-list d-flex flex-row align-items-center">
+											<div class="thumb">
+												<img class="img-fluid" src="{{pp.image.url}}" alt="" style="    width: 100px;
+												height: 80px;
+												object-fit: cover;
+												border-radius: 2px;">
+											</div>
+											<div class="details">
+												<a href="{% url 'blog_detail' pp.slug %}"><h6>{{pp.title}}</h6></a>
+												<p>{{pp.created|date:"H:i d-m-Y"}}</p>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+								<div class="single-sidebar-widget post-category-widget">
+									<h4 class="category-title">Kategoriyalar</h4>
+									<ul class="cat-list">
+										{% for ct in category %}
+										<li>
+											<a href="#" class="d-flex justify-content-between">
+												<p>{{ct.name}}</p>
+												<p>{{ct.posts_count}}</p>
+											</a>
+										</li>
+										{% endfor %}
+								</div>
+								<div class="single-sidebar-widget tag-cloud-widget">
+									<h4 class="tagcloud-title">HashTaglar</h4>
+									<ul>{% for tag in tags %}
+										<li><a href="#">{{tag.name}}</a></li>{% endfor %}
+									</ul>
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>	
+			</section>
+			<!-- End post-content Area -->
+			
+			{% endblock %}
+			{% block script %}
+{% endblock %}

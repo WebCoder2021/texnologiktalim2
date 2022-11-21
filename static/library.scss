@@ -1,0 +1,56 @@
+.banner-area{
+    background: url('../static/home/library.png');
+    background-position: center;
+
+}
+.library{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    ul{
+        .lib{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        li{
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            margin: 10px 0;
+            img{
+                width: 80px; 
+                height:80px; 
+                object-fit:cover; 
+                margin-right: 10px;
+                border-radius: 4px;
+                border: 1px solid blue;
+            }
+            p:nth-child(1){
+                font-weight: 500;
+            }
+            p:nth-child(1){
+                color:#444
+            }
+        }
+    }
+}
+.video-lessons{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    h2{
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .videos{
+        // display: grid;
+        // grid-template-columns: 1fr 1fr 1fr;
+        // grid-gap: 10px;
+        .video{
+            .iframe{
+                width: 100%;
+                border-radius: 7px;
+                overflow: hidden;
+            }
+        }
+    }
+}

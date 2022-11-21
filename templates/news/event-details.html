@@ -1,0 +1,64 @@
+{% extends 'main.html' %}{% load static %}{% block head %}{% endblock %}{% block content %}
+			<!-- start banner Area -->
+			<section class="banner-area relative about-banner" id="home">	
+				<div class="overlay overlay-bg"></div>
+				<div class="container">				
+					<div class="row d-flex align-items-center justify-content-center">
+						<div class="about-content col-lg-12">
+							<h1 class="text-white">
+								Tadbir tafsilotlari		
+							</h1>	
+							<p class="text-white link-nav"><a href="{% url 'home' %}">Bosh sahifa </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{% url 'event_detail' event.slug %}"> Tadbir tavsilotlari</a></p>
+						</div>	
+					</div>
+				</div>
+			</section>
+			<!-- End banner Area -->
+			<!-- Start event-details Area -->
+			<section class="event-details-area section-gap">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8 event-details-left">
+							<div class="main-img">
+								<img class="img-fluid" src="{{event.image.url}}" alt="">
+							</div>
+							<div class="details-content">
+								<a href="#">
+									<h4>{{event.title}}</h4>
+								</a>
+								<hr>
+								{{event.content|safe}}
+							</div>
+						</div>
+						<div class="col-lg-4 event-details-right">
+							<div class="single-event-details">
+								<h4>Ma'lumotlar</h4>
+								<ul class="mt-10">
+									<li class="justify-content-between d-flex">
+										<span>Muallif</span>
+										<span>{{ event.user.get_full_name }}</span>
+									</li>
+									<li class="justify-content-between d-flex">
+										<span>Kategoriya</span>
+										<span>{{event.category.name}}</span>
+									</li>
+									<li class="justify-content-between d-flex">
+										<span>Taglar</span>
+										<span>
+											{% for tag in event.tags.all %}#{{tag.name}} {% endfor %}
+										</span>
+									</li>
+									<li class="justify-content-between d-flex">
+										<span>Vaqt</span>
+										<span> {{event.created|date:"d-m-Y  H:i"}}</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</section>
+			<!-- End event-details Area -->
+			{% endblock %}
+			{% block script %}
+{% endblock %}

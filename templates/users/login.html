@@ -1,0 +1,117 @@
+{% extends 'main.html' %}{% load static %}
+{% block head %}
+<title>Karyera</title>
+
+<link rel="stylesheet" href="{% static 'styles/login.css' %}">
+{% endblock %}
+{% block content %}
+<section class="banner-area relative about-banner" id="home" style="background: url('../../media/back/login.jpg');background-attachment: fixed;
+background-size: cover;">	
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    Tizimga kirish
+                </h1>
+                <p class="text-white link-nav"><a href="{% url 'home' %}">Bosh sahifa </a>  <span class="lnr lnr-arrow-right"></span>  <a href="{% url 'login' %}"> Tizimga kirish</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+<form style="padding: 60px;" action="" method="POST">{% csrf_token %}
+    <div style="border-radius:3px;" class="login">
+        <h1><i class="fa-solid fa-right-to-bracket"></i> Kirish</h1>
+        <p style="color: red;">{{error}}</p>
+        <br>
+        <div class="inputs phone">
+            <!-- <span>+998</span> -->
+            <input type="text" name="phone" id="phone" required>
+            <label for=""><i class="fa-solid fa-user"></i> Login </label>
+        </div>
+       {% comment %} <div class="register" style="display: none;">
+            <div class="inputs">
+                <input type="text" name="first_name" id="">
+                <label for="">Ism </label>
+            </div>
+            <div class="inputs">
+                <input type="text" name="last_name" id="">
+                <label for="">Familiya </label>
+            </div>
+            <div class="inputs">
+                <input type="text" name="middle_name" id="">
+                <label for="">Sharif </label>
+            </div>
+            <div class="inputs">
+                <input type="text" name="email" id="">
+                <label for="">Elektron pochta </label>
+            </div>
+            <div class="inputs">
+                <input type="text" name="faculty" id="">
+                <label for="">Fakultet </label>
+            </div>
+            <div class="inputs">
+                <input type="text" name="direction" id="">
+                <label for="">Yo'nalish </label>
+            </div>
+            <div class="inputs">
+                <input type="text" name="group" id="">
+                <label for="">Guruh </label>
+            </div>
+        </div> {% endcomment %}
+        <input type="hidden" name="user">
+        <div class="inputs">
+            <input type="password" class="password" name="password" id="" required>
+            <label for=""><i class="fa-solid fa-lock"></i> Parol </label>
+            <img class="passImg" src="{% static 'eye.svg' %}" alt="" onclick="passwordShow('.password','.passImg')">
+        </div>{% comment %}
+        <div class="registerPass" style="display: none;">
+            <div class="inputs">
+                <input type="password" class="password2" name="password2" id="">
+                <label for="">Parolni qayta kiriting</label>
+                <img class="passImg2" src="{% static 'eye.svg' %}" alt=""
+                    onclick="passwordShow('.password2','.passImg2')">
+            </div>
+        </div> {% endcomment %}
+        <div class="sub">
+            <button type="submit" class="genric-btn info radius">Kirish</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+{% block script %}
+<script>
+    document.querySelector("input[name='phone']").addEventListener('keyup', function (e) {
+        e.target.value = e.target.value.substring(0, 9)
+        if (e.target.value.length === 9) {
+            fetch(`{% url 'check_user' %}?phone=${e.target.value}`).then(res => res.json()).then(res => {
+                if (!res.user) {
+                    document.querySelector('.register').style.display = 'block';
+                    document.querySelector('.registerPass').style.display = 'block';
+                }
+                else {
+                    document.querySelector("input[name='user']").value = res.user;
+                }
+            })
+        }
+        else {
+            document.querySelector('.register').style.display = 'none';
+            document.querySelector('.registerPass').style.display = 'none';
+        }
+    })
+</script>
+<script>
+    function passwordShow(cls, img) {
+        let pass = document.querySelector(cls);
+        let passImg = document.querySelector(img);
+        if (pass.type === "password") {
+            pass.type = "text";
+            passImg.src = "{% static 'eye-hidden.svg' %}"
+        } else {
+            pass.type = "password";
+            passImg.src = "{% static 'eye.svg' %}"
+        }
+    }
+</script>
+{% endblock %}

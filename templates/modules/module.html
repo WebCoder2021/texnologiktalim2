@@ -1,0 +1,37 @@
+{% extends 'main.html' %}{% load static %}{% block head %}
+<link rel="stylesheet" href="{% static 'styles/module.css' %}">
+{% endblock %}{% block content %}
+<section class="banner-area relative blog-home-banner" id="home">	
+	<div class="overlay overlay-bg"></div>
+	<div class="container">				
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content blog-header-content col-lg-12">
+				<h1 class="text-white">
+					Texnologik ta'lim MODULLAR		
+				</h1>	
+				<p class="text-white">
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="container">
+    <div class="section-top-border">
+        <h3 class="mb-30"><img src="{{md.image.url}}" width="80" alt="" title="" />  {{md.name}}</h3>
+        {% if md.themes %}
+        <div class="row">
+            <div class="col-lg-12">
+                <blockquote class="generic-blockquote">
+                    {% for th in md.themes.all %}
+                    <div class="theme"> <a href=""> {{forloop.counter}}. <img src="{{th.image.url}}" width="40" alt="" title="" /> {{th.title}}</a></div>
+                    {% endfor %}
+                </blockquote>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+			{% endblock %}
+			{% block script %}
+{% endblock %}

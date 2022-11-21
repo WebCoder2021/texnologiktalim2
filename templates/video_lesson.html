@@ -1,0 +1,37 @@
+{% extends 'main.html' %}{% load static %}{% block head %}
+<link rel="stylesheet" href="{% static 'library.css' %}">
+{% endblock %}{% block content %}
+<section class="banner-area relative blog-home-banner" id="home" style="background: url('../media/back/video_lesson.jpg');background-attachment: fixed;
+background-size: cover;">	
+	<div class="overlay overlay-bg"></div>
+	<div class="container">				
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content blog-header-content col-lg-12">
+				<h1 class="text-white">
+					Texnologik ta'lim <br>
+					VIDEO DARSLAR			
+				</h1>	
+				<p class="text-white">
+					
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="container video-lessons">
+	{% for vc in videos_category %}
+	<h2>{{vc.name}}</h2>
+	<div class="videos row">
+		{% for video in vc.videos.all %}
+		<div class="video col-md-4">
+			<div class="iframe">{{video.iframe|safe}}</div>
+			<p class="title">{{video.title}}</p>
+		</div>
+		{% endfor %}
+	</div>
+	{% endfor %}
+</section>
+
+			{% endblock %}
+			{% block script %}
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'users/user_base.html' %}{% load i18n %}{% load static %}
+{% block head %}
+<title>Test natijalari</title>
+<style>
+    .tests{
+        padding: 20px;
+    box-shadow: 3px 3px 9px #ccc;
+    background: #fff;
+    margin: 15px 0;
+    }
+    .test{
+        margin: 18px 0;
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 10px;
+    }
+    .info p{
+        font-size: 20px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<div class="card-body">
+    <h1>{{result.date|date:"d-m-Y H:i"}} dagi test natijalari</h1>
+    <div class="info">
+        
+		<p><span style="font-weight: 600;">Umumiy savollar:</span> {{result.tests.count}} ta <br>
+            <span style="font-weight: 600;">To'g'ri javoblar:</span> {{result.is_trues}} ta</p>
+		<p><span><b><i class="fa-solid fa-medal"></i> Natija:</b> {{result.result}} %</span></p>
+    </div>
+    
+
+    <div class="tests">
+        {% for test in result.tests.all %}
+			<div class="test">
+            <div style="display: flex;"><p style="font-size: 16px; font-weight:600; margin-right:7px">{{forloop.counter}}.  </p>  {{test.question.content|safe}}</div>
+            <br>
+			{% if test.is_true %}<p><i class="fa-solid fa-check" style="color: #0f0;"></i> {{test.answer}}</p>
+			{% else %}
+           <p><i class="fa-solid fa-xmark" style="color: red;"></i> {{test.answer}}</p> <br>
+            <p><b> To'g'ri javob:</b>  <i class="fa-solid fa-check" style="color: gray;"></i> {{test.question.is_true}}  </p>
+            {% endif %}
+           
+            </div>
+			{% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+{% block script %} 
+
+{% endblock %}

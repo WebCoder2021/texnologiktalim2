@@ -1,0 +1,175 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+			<!-- start banner Area -->
+			<section class="banner-area relative"  id="home">
+				<div class="overlay overlay-bg"></div>	
+				<div class="container">
+					<div class="row fullscreen d-flex align-items-center justify-content-between">
+						<div class="banner-content col-lg-9 col-md-12">
+							<h1 class="text-uppercase">
+								Texnologik ta'lim yo'nalishini
+								modernizatsiya qilish		
+							</h1>
+							<p class="pt-10 pb-10" style="text-align: center;">
+								In the history of modern astronomy, there is probably no one greater leap forward than the building and launch of the space telescope known as the Hubble.
+							</p>
+						</div>										
+					</div>
+				</div>					
+			</section>
+			<!-- End banner Area -->
+
+			<!-- Start feature Area -->
+			<section class="feature-area">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="single-feature">
+								<div class="title">
+									<h4>Muvaffaqiyat siri - Olg'a!</h4>
+								</div>
+								<div class="desc-wrap">
+									<p>
+										Ilmni fursat bo'lganda o'rganaverish kerak, chunki ilm zarur bo'lgan paytda fursat topilmaydi
+									</p>									
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="single-feature">
+								<div class="title">
+									<h4>Ta'limda islohot <br>O'zgarishni o'zimizdan boshlaylik</h4>
+								</div>
+								<div class="desc-wrap">
+									<p>
+										Siz ilmga bor yo'g'ingizni bermaguningizcha, u sizga biron narsa bermaydi
+									</p>									
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="single-feature">
+								<div class="title">
+									<h4>Huge Library</h4>
+								</div>
+								<div class="desc-wrap">
+									<p>
+										If you are a serious astronomy fanatic like a lot of us are, you can probably remember that one event.
+									</p>									
+								</div>
+							</div>
+						</div>												
+					</div>
+				</div>	
+			</section>
+			<!-- End feature Area -->
+					
+			
+			
+{% if questionnaire %}
+			<!-- Start search-course Area -->
+			<section class="search-course-area relative" style="background: url('../media/back/sorovnoma.jpg');">
+				<div class="overlay overlay-bg"></div>
+				<div class="container">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-lg-6 col-md-6 search-course-left">
+							<h1 class="text-white">
+								So'rovnomada <br>
+								qatnashing
+							</h1>
+							<p>
+								inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach.
+							</p>
+							
+						</div>
+						<div class="col-lg-4 col-md-6 search-course-right section-gap">
+							<form class="form-wrap sorovnoma" method="POST"> {% csrf_token %}
+								<h4 class="text-white pb-20 text-center mb-30" style="text-align: left !important;">{{questionnaire.title}}</h4>		
+								
+								<label><input type="radio" class="primary-radio" name="q" value="{{questionnaire.ans1}}" />{{questionnaire.ans1}}</label>
+								<label><input type="radio" class="primary-radio" name="q" value="{{questionnaire.ans2}}" />{{questionnaire.ans2}}</label>
+								{% if questionnaire.ans3 %}<label><input type="radio" class="primary-radio" name="q" value="{{questionnaire.ans3}}" />{{questionnaire.ans3}}</label>{% endif %}
+								{% if questionnaire.ans4 %}<label><input type="radio" class="primary-radio" name="q" value="{{questionnaire.ans4}}" />{{questionnaire.ans4}}</label>{% endif %}
+								{% if questionnaire.ans5 %}<label><input type="radio" class="primary-radio" name="q" value="{{questionnaire.ans5}}" />{{questionnaire.ans5}}</label>{% endif %}
+								{% if questionnaire.ans6 %}<label><input type="radio" class="primary-radio" name="q" value="{{questionnaire.ans6}}" />{{questionnaire.ans6}}</label>{% endif %}
+													
+								<button class="primary-btn text-uppercase">Jo'natish</button>
+							</form>
+						</div>
+					</div>
+				</div>	
+			</section>
+			<!-- End search-course Area -->
+{% endif %}			
+		
+			<!-- Start upcoming-event Area -->
+			<section class="upcoming-event-area section-gap">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="menu-content pb-70 col-lg-8">
+							<div class="title text-center">
+								<h1 class="mb-10">So'nggi yangiliklar</h1>
+								<p>Ishoning, qo'lingizdan keladi va yo'lning yarmi allaqachon o'tib ketgan</p>
+							</div>
+						</div>
+					</div>								
+					<div class="row">
+						<div class="active-upcoming-event-carusel">
+							{% for event in events %}
+							<div class="single-carusel row align-items-center">
+								<div class="col-12 col-md-6 thumb">
+									<img class="img-fluid" src="{{event.image.url}}" alt="">
+								</div>
+								<div class="detials col-12 col-md-6">
+									<p><i class="fa-solid fa-calendar-days"></i> {{event.created|date:'H:i d-m-Y'}}</p>
+									<a href="{% url 'event_detail' event.slug %}"><h4>{{event.title}}</h4></a>
+									<p>
+										{{event.sub_title|truncatechars:100}}...
+									</p>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>	
+			</section>
+			<!-- End upcoming-event Area -->
+						
+			
+		
+
+			<!-- Start blog Area -->
+			<section class="blog-area section-gap" id="blog">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="menu-content pb-70 col-lg-8">
+							<div class="title text-center">
+								<h1 class="mb-10">So'nggi maqolalar</h1>
+								<p>Faqat hech narsa qilmagan odam xato qilmaydi! Xato qilishdan qo'rqmang - xatolarni takrorlashdan qo'rqing</p>
+							</div>
+						</div>
+					</div>					
+					<div class="row">
+						{% for post in posts %}
+						<div class="col-lg-3 col-md-6 single-blog">
+							<div class="thumb">
+								<img class="img-fluid" src="{{post.image.url}}" alt="">
+							</div>
+							<p class="meta"><i class="fa-solid fa-calendar"></i> {{post.created|date:'H:i d-m-Y'}}  | <i class="fa-solid fa-user"></i> <a href="#">{{post.user.first_name}}</a></p>
+							<a href="{% url 'blog_detail' post.slug %}">
+								<h5>{{post.title}}</h5>
+							</a>
+							<p>
+								{{post.sub_title}}
+							</p>
+							<a href="{% url 'blog_detail' post.slug %}" class="details-btn d-flex justify-content-center align-items-center"><span class="details">Ko'proq</span><span class="lnr lnr-arrow-right"></span></a>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</section>
+			<!-- End blog Area -->			
+			
+
+		
+						
+			{% endblock %}

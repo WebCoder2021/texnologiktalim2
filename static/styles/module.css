@@ -1,0 +1,27 @@
+.section-top-border h3 img {
+  width: 200px;
+  height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 7px;
+  margin-right: 7px;
+}
+.section-top-border .theme img {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+  margin: 10px;
+}
+.section-top-border .theme a {
+  font-size: 20px;
+  color: #000;
+  cursor: pointer;
+  font-weight: 500;
+  margin: 10px 0;
+  overflow: hidden;
+  padding: 0 10px;
+}
+.section-top-border .theme a:hover {
+  color: #00f;
+  transform: scale(1.02);
+}/*# sourceMappingURL=module.css.map */

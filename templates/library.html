@@ -1,0 +1,43 @@
+{% extends 'main.html' %}{% load static %}{% block head %}
+<link rel="stylesheet" href="{% static 'library.css' %}">
+{% endblock %}{% block content %}
+<section class="banner-area relative blog-home-banner" id="home" style="background: url('../media/back/library.jpg');background-attachment: fixed;
+background-size: cover;">	
+	<div class="overlay overlay-bg"></div>
+	<div class="container">				
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content blog-header-content col-lg-12">
+				<h1 class="text-white">
+					Texnologik ta'lim KUTUBXONASI		
+				</h1>	
+				<p class="text-white">
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="library container">
+	<div class="">
+		<h3 class="mb-20">Kitoblar ro'yxati</h3>
+		<div class="">
+			<ul class="unordered-list">
+				{% for book in books %}
+				<li> <img src="{{book.image.url}}" alt="">  
+					<div class="outhor">
+						<p>{{book.title}}</p>
+						<p>{{book.author}}</p>
+					</div>
+					<a href="{{book.file.url}}" class="genric-btn primary-border circle" style="margin-left: 10px;">
+					<i class="fa-solid fa-download"></i> Yuklash </a>
+					<a href="{{book.url}}" target="_blank" class="genric-btn success-border circle" style="margin-left: 10px;">
+						<i class="fa-solid fa-link"></i> Ko'rish </a>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+			{% endblock %}
+			{% block script %}
+{% endblock %}

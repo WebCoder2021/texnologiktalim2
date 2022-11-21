@@ -1,0 +1,78 @@
+<!DOCTYPE html>{% load i18n %}{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/base.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+<link rel="stylesheet" href="{% static 'styles/users/user_profile.css' %}">
+<script src="https://kit.fontawesome.com/92d9a36319.js" crossorigin="anonymous"></script>
+<style>
+  a{
+    color: #444;
+    font-weight: 900;
+  }
+</style>
+   {% block head %} {% endblock %}
+</head>
+<style>
+ 
+</style>
+<body>
+    <div style="background-color: #fff;" class="sidebar open">
+        <a href="{% url 'home' %}" class="logo-details">
+          <img src="{% static 'logo.png' %}" width="50" alt="">
+            <div class="logo_name">Texnologik ta'lim</div>
+        </a>
+        <ul class="nav-list">
+          <li><a href="{% url 'profile' %}"><i class="fa-solid fa-user"></i>Profil</a></li>
+          <li><a href="{% url 'settings' %}"><i  class="fa-solid fa-gear"></i>Sozlamalar</a></li>
+          <li><a href="{% url 'test_result' %}"><i class="fa-solid fa-list-check"></i>  Test natijalari</a></li>
+          {% if request.user.is_superuser %}
+          <li><a href="{% url 'sorovnoma' %}"><i class="fa-regular fa-calendar-check"></i>  </i> So'rovnoma</a></li>
+          {% endif %}
+          <li><a href="{% url 'test' %}"><i class="fa-solid fa-bars-progress"></i>  Test ishlash</a></li>
+
+        </ul>
+      </div>
+      <section  class="home-section">
+        
+        <div  class="rightSide">
+              <div class="left">
+              </div>
+              <div class="right">
+                   <header >
+                     <nav>
+                      <i style="margin-left: 250px;" id="btn" class="fa-solid fa-bars open "></i>
+                      <ul > 
+                        <li><a><img src="{{request.user.picture.url}}" alt=""></a>
+                          <ul style="padding: 10px;">
+                            <li><a href="{% url 'profile' %}"><i style="		margin-right: 5px;" class="fa-solid fa-user"></i>Profil</a></li>
+                            <li><a href="{% url 'settings' %}"><i style="		margin-right: 5px;" class="fa-solid fa-gear"></i>Sozlamalar</a></li>
+                            <li > <a class="logout" href="{% url 'logout' %}"><i style="margin-right: 5px;" class="fa-solid fa-arrow-right-from-bracket"></i>Chiqish</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                     </nav>
+                   </header>
+              </div>
+        </div>
+          {% block content %} {% endblock %}
+      </section>
+      
+      <script>
+          let sidebar = document.querySelector(".sidebar");
+let closeBtn = document.querySelector("#btn");
+
+closeBtn.addEventListener("click", ()=>{
+  sidebar.classList.toggle("open");
+  menuBtnChange();
+});
+
+
+
+      </script>
+      {% block script %}{% endblock %}
+</body>
+</html>

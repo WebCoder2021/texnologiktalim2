@@ -1,0 +1,183 @@
+<!DOCTYPE html> {% load static %}{% load custom_tags %}
+<html lang="zxx" class="no-js">
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'logo.png' %}">
+    <!-- Author Meta -->
+    <meta name="author" content="astroacademy">
+    <!-- Meta Description -->
+    <meta name="description" content="Texnologin ta'lim">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="texnologik talim">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Texnologik ta'lim</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+    <script src="https://kit.fontawesome.com/92d9a36319.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">							
+        <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">			
+        <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">			
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        {% block head %}{% endblock %}
+    </head>
+    <body>	
+      <header id="header" id="home">
+          <div class="header-top">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-lg-6 col-sm-6 col-8 header-top-left no-padding">
+                          <ul>
+                            <li><a href="https://buxdupi.uz/" target="_blank"><i class="fa-solid fa-globe"></i></a></li>
+                            <li><a href="https://www.facebook.com/people/Buxoro-Pedagogika-Instituti/100073705396413/" target="_blank"><i class="fa-brands fa-facebook"></i></a></li>
+                            <li><a href="https://www.youtube.com/channel/UCj8i9RW6DDLnh-UuLd1Otdw" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
+                            <li><a href="https://t.me/buxdupi" target="_blank"><i class="fa-brands fa-telegram" ></i></a></li>
+                            <li><a href="http://elib.buxdupi.uz/" target="_blank"><i class="fa-solid fa-book-open-reader"></i></a></li>
+                          </ul>			
+                      </div>
+                      <div class="col-lg-6 col-sm-6 col-4 header-top-right no-padding">
+                          <a href="tel:+953 012 3654 896"><span class="lnr lnr-phone-handset"></span> <span class="text">0 (365) 226-10-97</span></a>
+                          <a href="mailto:support@colorlib.com"><span class="lnr lnr-envelope"></span> <span class="text">buxdupi@buxdupi.uz</span></a>			
+                      </div>
+                  </div>			  					
+              </div>
+        </div>
+        <div class="container main-menu">
+            <div class="row align-items-center justify-content-between d-flex">
+              <div id="logo">
+                <a href="{% url 'home' %}"><img src="{% static 'logo2.png' %}" width="40" alt="" title="" /></a>
+              </div>
+              <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                  
+                  <li><a href="{% url 'about' %}">Biz haqimizda</a></li>
+                  <li><a href="{% url 'events' %}">Yangiliklar</a></li>
+                  <li><a href="{% url 'blog' %}">Maqolalar</a></li>
+                  <li><a href="{% url 'modules' %}">Modullar</a>
+                    
+                  </li>	
+                  <li class="menu-has-children"><a href="#">Resurslar</a>
+                    <ul>
+                        <li><a href="{% url 'library' %}">Kutubxona</a></li>
+                        <li><a href="{% url 'resurs' %}">Internet resurslar</a></li>
+                        <li><a href="{% url 'video_lesson' %}">Video darslar</a></li>				                		
+                    </ul>
+                  </li>	
+                  
+                  
+                  				          					          		          
+                  <li><a href="{% url 'test' %}">Test ishlash</a>
+                  <li><a href="{% url 'contact' %}">Bog'lanish</a></li>
+
+                  {% if request.user.is_authenticated %}
+                  {% if request.user.is_staff %}
+                    <li><a href="{% url 'admin:index' %}"><i class="fa-regular fa-user"></i> {{request.user.first_name}}</a>
+                          <ul  class="sub-menu" style="padding: 0; width: max-content;">
+                                <li class="sub-menu-item"><a href="{% url 'profile' %}">Sozlamalar </a></li>
+                              <li class="sub-menu-item"><a class="sub-menu-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-to-bracket"></i>  Chiqish</a></li>
+                          </ul>
+                    </li>
+                    {% else %}
+                       <li>
+                          <a href="{% url 'profile' %}"><i class="fa-regular fa-user"></i> {{request.user.first_name}} </a>
+                              <ul  class="sub-menu" style="padding: 0; width: max-content;">
+                                <li class="sub-menu-item"><a href="{% url 'profile' %}">Sozlamalar </a></li>
+                                <li class="sub-menu-item"><a class="sub-menu-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-to-bracket"></i>  Chiqish</a></li>
+                              </ul>
+                       </li>
+                  {% endif %}
+            {% else %}
+              <li><a href="{% url 'login' %}"><i class="fa-solid fa-right-to-bracket"></i> Kirish</a></li>
+            {% endif %}
+                </ul>
+              </nav><!-- #nav-menu-container -->		    		
+            </div>
+        </div>
+      </header><!-- #header -->
+
+{% block content %}
+      
+{% endblock %}    
+        <!-- start footer Area -->		
+        <footer class="footer-area section-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-9 col-sm-9">
+                        <div class="single-footer-widget">
+                            <div id="logo">
+                                <a href="{% url 'home' %}"  style="    color: #fff;
+                                display: flex;
+                                justify-content: center;
+                                flex-direction: column; align-items: center;
+                                "><img src="{% static 'logo2.png' %}" width="40" alt="" title="" /> <br> Texnologik ta'lim</a>
+                              </div>								
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-9 col-sm-9">
+                        <div class="single-footer-widget">
+                            <h4>Bo'limlar</h4>
+                            <ul>
+                                <li><a href="{% url 'about' %}">Biz haqimizda</a></li>
+                                <li><a href="{% url 'events' %}">Yangiliklar</a></li>
+                                <li><a href="{% url 'blog' %}">Maqolalar</a></li>
+                                <li><a href="{% url 'modules' %}">Modullar</a>
+                                <li><a href="{% url 'contact' %}">Bog'lanish</a></li>
+                            </ul>								
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-9 col-sm-9">
+                        <div class="single-footer-widget">
+                            <h4>Resurslar</h4>
+                            <ul>
+                                <li><a href="{% url 'library' %}">Kutubxona</a></li>
+                                <li><a href="{% url 'resurs' %}">Internet resurslar</a></li>
+                                <li><a href="{% url 'video_lesson' %}">Video darslar</a></li>
+                                <li><a href="{% url 'test' %}">Test ishlash</a>
+
+                            </ul>								
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-9 col-sm-9">
+                        <div class="single-footer-widget">
+                            <h4>Ijtimoiy tarmoqlar</h4>
+                            <ul>
+                                <li><a href="https://buxdupi.uz/" target="_blank"><i class="fa-solid fa-globe"></i> Web-sayt</a></li>
+                            <li><a href="https://www.facebook.com/people/Buxoro-Pedagogika-Instituti/100073705396413/" target="_blank"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCj8i9RW6DDLnh-UuLd1Otdw" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
+                            <li><a href="https://t.me/buxdupi" target="_blank"><i class="fa-brands fa-telegram" ></i> Telegram</a></li>
+                            <li><a href="http://elib.buxdupi.uz/" target="_blank"><i class="fa-solid fa-book-open-reader"></i> E-Kutubxona</a></li>
+                            </ul>								
+                        </div>
+                    </div>								
+                </div>		
+            </div>
+        </footer>	
+        <!-- End footer Area -->	
+
+{% block script %}
+
+{% endblock %}
+        <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>			
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+          <script src="{% static 'js/easing.min.js' %}"></script>			
+        <script src="{% static 'js/hoverIntent.js' %}"></script>
+        <script src="{% static 'js/superfish.min.js' %}"></script>	
+        <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+        <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>	
+        <script src="{% static 'js/jquery.tabs.min.js' %}"></script>						
+        <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>	
+        <script src="{% static 'js/owl.carousel.min.js' %}"></script>									
+        <script src="{% static 'js/mail-script.js' %}"></script>	
+        <script src="{% static 'js/main.js' %}"></script>	
+    </body>
+</html>

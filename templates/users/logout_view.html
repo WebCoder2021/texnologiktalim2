@@ -1,0 +1,30 @@
+{% extends 'main.html' %}{% load static %}
+{% block head %}
+<title>Karyera</title>
+<link rel="stylesheet" href="{% static 'styles/style.css' %}">
+{% endblock %}
+{% block content %}
+<section class="banner-area relative about-banner" id="home" style="background: url('../../media/back/login.jpg');background-attachment: fixed;
+background-size: cover;">	
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    Tizimdan chiqish
+                </h1>
+                </div>
+        </div>
+    </div>
+</section>
+<div class="logoutContainer container">
+    <h1>Rostdan ham chiqishni xohlaysizmi?</h1>
+    <div class="buttons">
+        <a href="{% url 'logout' %}?logout=true"> <button class="genric-btn danger radius">Chiqish</button></a>    
+        <a href="{% url 'home' %}"><button class="genric-btn success radius">Bosh sahifaga qaytish</button></a>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+
+{% endblock %}

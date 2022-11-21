@@ -1,0 +1,36 @@
+.section-top-border{
+    h3{
+        img{
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 7px;
+            margin-right: 7px;
+        }
+    }
+    .theme{
+        img{
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        a{
+            font-size: 20px;
+            color: #000;
+            cursor: pointer;
+            font-weight: 500;
+            margin: 10px 0;
+            overflow: hidden;
+            padding: 0 10px;
+             
+            &:hover{
+            color: #00f;
+            // font-weight: 700;
+            transform: scale(1.02);
+            
+        }
+        }
+       
+    }
+}
