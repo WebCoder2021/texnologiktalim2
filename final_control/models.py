@@ -15,6 +15,15 @@ class FinalControlTest(models.Model):
     ans2 = models.CharField(max_length=500)
     ans3 = models.CharField(max_length=500)
     lesson = models.ForeignKey(Lesson,on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return self.question + ' - ' + str(self.lesson.name)
+
+    def answers(self):
+        context = [
+            { 'name':self.ans, 'is_true':True },
+            { 'name':self.ans1, 'is_true':True },
+            { 'name':self.ans2, 'is_true':True },
+            { 'name':self.ans3, 'is_true':True },
+            ]
+        return list(context)
