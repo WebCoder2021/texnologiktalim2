@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import CustomUser
+
 # Create your models here.
 class Lesson(models.Model):
     name = models.CharField(max_length=200)
@@ -27,3 +29,34 @@ class FinalControlTest(models.Model):
             { 'name':self.ans3, 'is_true':True },
             ]
         return list(context)
+
+
+class ControlTest(models.Model):
+    question = models.ForeignKey(FinalControlTest,on_delete=models.CASCADE)
+    answer = models.CharField(max_length=500,null=True)
+    is_true  = models.BooleanField(default=False)
+    def __str__(self) -> str:
+        return self.question.question
+
+
+class UserControlTestResult(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    tests = models.ManyToManyField(ControlTest)
+    
+    def result(self):
+        if (self.tests.filter(is_true=True).count()) > 0:
+            r = (self.tests.filter(is_true=True).count()*100) / self.tests.count()
+            return '{:.2f}'.format(r)
+        else: return 0
+    
+    def is_trues(self):
+        return self.tests.filter(is_true=True).count()
+
+
+    def __str__(self) -> str:
+        return self.user.get_full_name()
+
+    class Meta:
+        ordering = ['-date']

@@ -47,8 +47,10 @@ class UserTestResult(models.Model):
         return self.tests.filter(is_true=True).count()
     
     def result(self):
-        r = (self.tests.filter(is_true=True).count()*100) / self.tests.count()
-        return '{:.2f}'.format(r)
+        if (self.tests.filter(is_true=True).count()) > 0:
+            r = (self.tests.filter(is_true=True).count()*100) / self.tests.count()
+            return '{:.2f}'.format(r)
+        else: return 0git 
 
 
     def __str__(self) -> str:

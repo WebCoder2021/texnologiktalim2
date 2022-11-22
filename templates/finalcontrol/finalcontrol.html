@@ -73,12 +73,14 @@ background-size: cover;">
 		<p><span style="font-weight: 600;">Umumiy savollar:</span> {{result.tests.count}}  <span style="font-weight: 500;">To'g'ri javoblar: {{result.is_trues}}</span></p>
 		<p><span><b>Natija:</b> {{result.result}}%</span></p>
 			{% for test in result.tests.all %}
-			<div style="display: flex;"><p style="font-size: 16px; font-weight:600; margin-right:7px">{{forloop.counter}}  </p>  {{test.question.content|safe}}</div>
-			{% if test.is_true %}<p><i class="fa-solid fa-check" style="color: green;"></i> {{test.answer}}</p>
+			<div style="display: flex;"><p style="font-size: 16px; font-weight:600; margin-right:7px">{{forloop.counter}}  {{test.question.question}}</p> 
+			{% if question.image %} <img src="{{question.image.url}}" alt=""> {% endif %}
+			</div>
+			{% if test.is_true %}<p><i class="fa-solid fa-check" style="color: green;"></i> {{test.ans}}</p>
 
 			{% else %}
-           <p><i class="fa-solid fa-xmark" style="color: red;"></i> {{test.answer}}</p> 
-            <p><b> To'g'ri javob:</b>  <i class="fa-solid fa-check" style="color: gray;"></i> {{test.question.is_true}}  </p>
+            <p><i class="fa-solid fa-xmark" style="color: red;"></i> {{test.answer}}</p> 
+            <p><b> To'g'ri javob:</b>  <i class="fa-solid fa-check" style="color: gray;"></i> {{test.question.ans}}  </p>
             {% endif %}
 			<hr>
 			{% endfor %}

@@ -14,3 +14,5 @@ class ControlDetailAdmin(ImportExportModelAdmin):
     resource_class = ControlAdminResource
     
 admin.site.register(FinalControlTest,ControlDetailAdmin)
+admin.site.register(ControlTest)
+admin.site.register(UserControlTestResult)
