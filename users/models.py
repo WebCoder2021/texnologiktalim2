@@ -25,7 +25,7 @@ class CustomUserManager(BaseUserManager):
 # Create your models here.
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
-        _('Telefon raqam'), max_length=200, unique=True
+        _('Username'), max_length=200, unique=True
     )
     first_name = models.CharField(max_length=100,null=True,blank=True,verbose_name='Ism')
     last_name = models.CharField(max_length=100,null=True,blank=True,verbose_name='Familiya')

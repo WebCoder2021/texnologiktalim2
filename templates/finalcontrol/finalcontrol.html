@@ -64,7 +64,7 @@ background-size: cover;">
 {% endif %}
 {% if result and not start %}
 <section class="container" style="margin-top:30px;margin-bottom:50px;">
-	<h1 style="margin: 10px 0 30px 0; text-align: center;">Texnologik ta'lim fanidan test</h1>
+	<h1 style="margin: 10px 0 30px 0; text-align: center;">Texnologik ta'lim fanidan test natijasi</h1>
 <div class="row">
 	<div class="col-8 card">
 		<div  class="card-body"> 
@@ -76,7 +76,7 @@ background-size: cover;">
 			<div style="display: flex;"><p style="font-size: 16px; font-weight:600; margin-right:7px">{{forloop.counter}}  {{test.question.question}}</p> 
 			{% if question.image %} <img src="{{question.image.url}}" alt=""> {% endif %}
 			</div>
-			{% if test.is_true %}<p><i class="fa-solid fa-check" style="color: green;"></i> {{test.ans}}</p>
+			{% if test.is_true %}<p><i class="fa-solid fa-check" style="color: green;"></i> {{test.answer}}</p>
 
 			{% else %}
             <p><i class="fa-solid fa-xmark" style="color: red;"></i> {{test.answer}}</p> 

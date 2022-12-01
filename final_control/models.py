@@ -7,7 +7,7 @@ class Lesson(models.Model):
     name = models.CharField(max_length=200)
     course = models.PositiveSmallIntegerField(default=0)
     def __str__(self):
-        return self.name + ' - ' + str(self.course)
+        return self.name
 
 class FinalControlTest(models.Model):
     question = models.CharField(max_length=500)
@@ -17,7 +17,7 @@ class FinalControlTest(models.Model):
     ans2 = models.CharField(max_length=500)
     ans3 = models.CharField(max_length=500)
     lesson = models.ForeignKey(Lesson,on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return self.question + ' - ' + str(self.lesson.name)
 

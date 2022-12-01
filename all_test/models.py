@@ -50,7 +50,7 @@ class UserTestResult(models.Model):
         if (self.tests.filter(is_true=True).count()) > 0:
             r = (self.tests.filter(is_true=True).count()*100) / self.tests.count()
             return '{:.2f}'.format(r)
-        else: return 0git 
+        else: return False
 
 
     def __str__(self) -> str:
