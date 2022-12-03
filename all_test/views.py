@@ -16,7 +16,7 @@ def test(request):
             result = UserTestResult.objects.create(user=request.user)
             for p,value in request.POST.items():
                 if p != "csrfmiddlewaretoken":
-                    ts = UserTest.objects.create(question_id=int(p),answer_id=int(value)) 
+                    ts = UserTest.objects.create(question_id=int(p),answer_id=int(value))
                     ts.save()
                     result.tests.add(ts)
                     result.save()
@@ -29,12 +29,12 @@ def test(request):
 
             # result = UserTestResult.objects.create(user=request.user)
             # for test in tests:
-            #     ts = UserTest.objects.create(question_id=int(test.id),answer_id=int(request.POST.get(str(test.id),False))) 
+            #     ts = UserTest.objects.create(question_id=int(test.id),answer_id=int(request.POST.get(str(test.id),False)))
             #     ts.save()
 
                 # result.tests.add(ts)
                 # result.save()
                 # context['result'] = result
-            
+
 
     return render(request,'test/test.html',context)

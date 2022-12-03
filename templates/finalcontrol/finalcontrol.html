@@ -1,27 +1,56 @@
 {% extends 'main.html' %}{% load static %}{% load custom_tags %}{% block head %}
 {% endblock %}{% block content %}
+{% if not lesson  %}
 <section class="banner-area relative blog-home-banner" id="home" style="background: url('../../media/back/test.jpg');background-attachment: fixed;
-background-size: cover;">	
+background-size: cover;">
 	<div class="overlay overlay-bg"></div>
-	<div class="container">				
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content blog-header-content col-lg-12">
+				<h1 class="text-white">
+					Yakuniy nazorat
+				</h1><br>
+				<form action="" method="GET" style="    display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
+				grid-gap: 30px;">
+					<div class="form-select" id="service-select">
+						<select name="lesson">
+							<option datd-display="">Fanni tanlang</option>
+							{% for c in lessons %}
+							<option value="{{c.name}}">{{c.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<input type="text" name="username" placeholder="Username" required="" class="single-input">
+<button class="genric-btn primary radius" type="submit" >Boshlash</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+{% endif %}
+{% if lesson %}
+<section class="banner-area relative blog-home-banner" id="home" style="background: url('../../media/back/test.jpg');background-attachment: fixed;
+background-size: cover;">
+	<div class="overlay overlay-bg"></div>
+	<div class="container">
 		<div class="row d-flex align-items-center justify-content-center">
 			<div class="about-content blog-header-content col-lg-12">
 				<h1 class="text-white">
 					{{lesson}} fanidan
 					o'z bilimingizni sinab ko'ring
-							
 				</h1><br>
-				{% if request.user.is_authenticated  %}
-				<a href="?start=True" class="primary-btn text-uppercase">Testni boshlash</a>	
+				{% if user  %}
+				<a href="?start=True&username={{user.username}}&lesson={{lesson.name}}" class="primary-btn text-uppercase">Testni boshlash</a>
 				{% else %}
 				<a href="{% url 'login' %}">Test ishlash uchun oldin tizimga kiring</a>
 				{% endif %}
-				
 			</div>
 		</div>
 	</div>
 </section>
-{% if request.user.is_authenticated and start %}
+{% endif %}
+{% if user and start %}
 <section class="container" style="margin-top:30px;margin-bottom:50px;">
 	<h1 style="margin: 10px 0 30px 0; text-align: center;">{{lesson.name}} fanidan test</h1>
 <div class="row">

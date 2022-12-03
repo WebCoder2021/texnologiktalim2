@@ -10,9 +10,9 @@ class ControlDetailAdmin(ImportExportModelAdmin):
     list_display = ('id','question','ans',)
     list_filter = ['lesson',]
     save_as = True
-    group_fieldsets = True 
+    group_fieldsets = True
     resource_class = ControlAdminResource
-    
+
 admin.site.register(FinalControlTest,ControlDetailAdmin)
 admin.site.register(ControlTest)
 admin.site.register(UserControlTestResult)

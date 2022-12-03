@@ -10,7 +10,6 @@ class TestAnswer(models.Model):
     class Meta:
         verbose_name = "Variant"
         verbose_name_plural = "Variantlar"
-    
     def __str__(self) -> str:
         return self.content
 
