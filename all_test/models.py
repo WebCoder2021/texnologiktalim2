@@ -44,12 +44,12 @@ class UserTestResult(models.Model):
 
     def is_trues(self):
         return self.tests.filter(is_true=True).count()
-    
+
     def result(self):
         if (self.tests.filter(is_true=True).count()) > 0:
             r = (self.tests.filter(is_true=True).count()*100) / self.tests.count()
             return '{:.2f}'.format(r)
-        else: return False
+        else: return 0
 
 
     def __str__(self) -> str:

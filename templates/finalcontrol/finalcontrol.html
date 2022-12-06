@@ -1,6 +1,6 @@
 {% extends 'main.html' %}{% load static %}{% load custom_tags %}{% block head %}
 {% endblock %}{% block content %}
-{% if not lesson  %}
+{% if not lesson and not result %}
 <section class="banner-area relative blog-home-banner" id="home" style="background: url('../../media/back/test.jpg');background-attachment: fixed;
 background-size: cover;">
 	<div class="overlay overlay-bg"></div>
@@ -10,6 +10,7 @@ background-size: cover;">
 				<h1 class="text-white">
 					Yakuniy nazorat
 				</h1><br>
+				{% if user_err %}<h4 class="text-white">{{user_err}}</h4>{% endif %}
 				<form action="" method="GET" style="    display: grid;
 				grid-template-columns: 1fr 1fr 1fr;
 				grid-gap: 30px;">
@@ -29,7 +30,7 @@ background-size: cover;">
 	</div>
 </section>
 {% endif %}
-{% if lesson %}
+{% if lesson or result %}
 <section class="banner-area relative blog-home-banner" id="home" style="background: url('../../media/back/test.jpg');background-attachment: fixed;
 background-size: cover;">
 	<div class="overlay overlay-bg"></div>
@@ -38,12 +39,23 @@ background-size: cover;">
 			<div class="about-content blog-header-content col-lg-12">
 				<h1 class="text-white">
 					{{lesson}} fanidan
-					o'z bilimingizni sinab ko'ring
+					yakuniy nazorat
 				</h1><br>
-				{% if user  %}
+				{% if not user and user_err %}<h4 class="text-white">{{user_err}}</h4>{% endif %}
+				<div class="user-info" style="    display: flex;
+				align-items: start;
+				flex-direction: column-reverse;
+				background: #00000088;
+				padding: 20px;
+				border-radius: 7px;">
+					<h4 class="text-white"> <span style="color: #f7631b;"> Talaba:</span> {{user.get_full_name}}</h4>
+				<h4 class="text-white"><span style="color: #f7631b;">Fakultet:</span> {{user.faculty}}</h4>
+				<h4 class="text-white"><span style="color: #f7631b;">Yo'nalish:</span> {{user.direction}}</h4>
+				<h4 class="text-white"><span style="color: #f7631b;">Guruh:</span> {{user.group}}</h4>
+				</div>
+				<br>
+				{% if user and not result %}
 				<a href="?start=True&username={{user.username}}&lesson={{lesson.name}}" class="primary-btn text-uppercase">Testni boshlash</a>
-				{% else %}
-				<a href="{% url 'login' %}">Test ishlash uchun oldin tizimga kiring</a>
 				{% endif %}
 			</div>
 		</div>
@@ -61,7 +73,7 @@ background-size: cover;">
 			{% if test.image %}<img src="{{test.image.url}}" alt=""> {% endif %} </div>
 			{% for a in test.answers|shuffle %}
 				<label style="display: flex; align-items:center;"><input style="margin-right: 7px;" type="radio" class="primary-radio" name="{{test.id}}" value="{{a.name}}" required />{{a.name}}</label>
-			{% endfor %} 
+			{% endfor %}
 			<hr>
 			{% endfor %}
 			<br>
@@ -73,7 +85,7 @@ background-size: cover;">
 	<div class="card-body">
 		<h4>Umumiy savollar soni: {{tests.count}} ta</h4>
 <p>Test tugashiga qolgan vaqt: <span id="time">45:00</span></p>
-<p><b>Test ishlovchi: </b>{{request.user.get_full_name}}</p>
+<p><b>Test ishlovchi: </b>{{user.get_full_name}}</p>
 	</div>
 	<div class="card-body">
 		<h5>Oldingi urinishlar ({{old_results.count}})</h5>
@@ -118,7 +130,7 @@ background-size: cover;">
 	<div class="col-4">
 <div class="card">
 	<div class="card-body">
-		<h4>Umumiy savollar soni: {{tests.count}} ta</h4>
+		<h4>Umumiy savollar soni: {{result.tests.count}}  ta</h4>
 <p>Test tugashiga qolgan vaqt: <span id="time">45:00</span></p>
 <p><b>Test ishlovchi: </b>{{request.user.get_full_name}}</p>
 	</div>

@@ -76,7 +76,7 @@
                   				          					          		          
                   <li><a href="{% url 'test' %}">Test ishlash</a>
                   <li><a href="{% url 'contact' %}">Bog'lanish</a></li>
-                  <li><a href="{% url 'finalcontrol' %}">Yakuniy nazorat</a></li>
+                  {% if request.user.is_superuser %}<li><a href="{% url 'finalcontrol' %}">Yakuniy nazorat</a></li>{% endif %}
 
                   {% if request.user.is_authenticated %}
                   {% if request.user.is_staff %}
