@@ -24,9 +24,9 @@ class FinalControlTest(models.Model):
     def answers(self):
         context = [
             { 'name':self.ans, 'is_true':True },
-            { 'name':self.ans1, 'is_true':True },
-            { 'name':self.ans2, 'is_true':True },
-            { 'name':self.ans3, 'is_true':True },
+            { 'name':self.ans1, 'is_true':False },
+            { 'name':self.ans2, 'is_true':False },
+            { 'name':self.ans3, 'is_true':False },
             ]
         return list(context)
 
@@ -51,6 +51,28 @@ class UserControlTestResult(models.Model):
             return '{:.2f}'.format(r)
         else: return 0
     
+    def is_trues(self):
+        return self.tests.filter(is_true=True).count()
+
+
+    def __str__(self) -> str:
+        return self.user.get_full_name()
+
+    class Meta:
+        ordering = ['-date']
+
+class UserTestsResult(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    tests = models.ManyToManyField(ControlTest)
+
+    def result(self):
+        if (self.tests.filter(is_true=True).count()) > 0:
+            r = (self.tests.filter(is_true=True).count()*100) / self.tests.count()
+            return '{:.2f}'.format(r)
+        else: return 0
+
     def is_trues(self):
         return self.tests.filter(is_true=True).count()
 

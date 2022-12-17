@@ -1,37 +1,85 @@
 {% extends 'main.html' %}{% load static %}{% load custom_tags %}{% block head %}
 {% endblock %}{% block content %}
+{% if not lesson and not result %}
 <section class="banner-area relative blog-home-banner" id="home" style="background: url('../../media/back/test.jpg');background-attachment: fixed;
-background-size: cover;">	
+background-size: cover;">
 	<div class="overlay overlay-bg"></div>
-	<div class="container">				
+	<div class="container">
 		<div class="row d-flex align-items-center justify-content-center">
 			<div class="about-content blog-header-content col-lg-12">
+				{% if request.user.is_authenticated %}
 				<h1 class="text-white">
-					Texnologik ta'lim fanidan
-					o'z bilimingizni sinab ko'ring
-							
+					Tesh ishlash
 				</h1><br>
-				{% if request.user.is_authenticated  %}
-				<a href="?start=True" class="primary-btn text-uppercase">Testni boshlash</a>	
-				{% else %}
-				<a href="{% url 'login' %}">Test ishlash uchun oldin tizimga kiring</a>
-				{% endif %}
 				
+				<form action="" method="GET" style="    display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
+				grid-gap: 30px;">
+					<div class="form-select" id="service-select">
+						<select name="lesson">
+							<option datd-display="">Fanni tanlang</option>
+							{% for c in lessons %}
+							<option value="{{c.name}}">{{c.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+                  <button class="genric-btn primary radius" type="submit" >Boshlash</button>
+				</form>
+				{% else %}
+				<h1 class="text-white">
+					Tesh ishlash uchun tizimga kiring
+				</h1><br>
+				 <a class="primary-btn text-uppercase" href="{% url 'login' %}">Kirish</a>
+				{% endif %}
 			</div>
 		</div>
 	</div>
 </section>
-{% if request.user.is_authenticated and start %}
+{% endif %}
+{% if lesson or result %}
+<section class="banner-area relative blog-home-banner" id="home" style="background: url('../../media/back/test.jpg');background-attachment: fixed;
+background-size: cover;">
+	<div class="overlay overlay-bg"></div>
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content blog-header-content col-lg-12">
+				<h1 class="text-white">
+					{{lesson}} fanidan
+					yakuniy nazorat
+				</h1><br>
+				{% if not user and user_err %}<h4 class="text-white">{{user_err}}</h4>{% endif %}
+				<div class="user-info" style="    display: flex;
+				align-items: start;
+				flex-direction: column-reverse;
+				background: #00000088;
+				padding: 20px;
+				border-radius: 7px;">
+					<h4 class="text-white"> <span style="color: #f7631b;"> Talaba:</span> {{user.get_full_name}}</h4>
+				<h4 class="text-white"><span style="color: #f7631b;">Fakultet:</span> {{user.faculty}}</h4>
+				<h4 class="text-white"><span style="color: #f7631b;">Yo'nalish:</span> {{user.direction}}</h4>
+				<h4 class="text-white"><span style="color: #f7631b;">Guruh:</span> {{user.group}}</h4>
+				</div>
+				<br>
+				{% if user and not result %}
+				<a href="?start=True&username={{user.username}}&lesson={{lesson.name}}" class="primary-btn text-uppercase">Testni boshlash</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+{% endif %}
+{% if user and start %}
 <section class="container" style="margin-top:30px;margin-bottom:50px;">
-	<h1 style="margin: 10px 0 30px 0; text-align: center;">Texnologik ta'lim fanidan test</h1>
+	<h1 style="margin: 10px 0 30px 0; text-align: center;">{{lesson.name}} fanidan test</h1>
 <div class="row">
 	<div class="col-8 card">
 		<form method="POST" class="card-body">  {% csrf_token %}
 			{% for test in tests %}
-			<div style="display: flex;"><p style="font-size: 16px; font-weight:600; margin-right:7px">{{forloop.counter}}  </p>  {{test.content|safe}}</div>
-			{% for a in test.answers.all|shuffle %}
-				<label style="display: flex; align-items:center;"><input style="margin-right: 7px;" type="radio" class="primary-radio" name="{{test.id}}" value="{{a.id}}" required />{{a.content}}</label>
-			{% endfor %} 
+			<div style="display: flex;"><p>{{forloop.counter}}  {{test.question}}</p>
+			{% if test.image %}<img src="{{test.image.url}}" alt=""> {% endif %} </div>
+			{% for a in test.answers|shuffle %}
+				<label style="display: flex; align-items:center;"><input style="margin-right: 7px;" type="radio" class="primary-radio" name="{{test.id}}" value="{{a.name}}" required />{{a.name}}</label>
+			{% endfor %}
 			<hr>
 			{% endfor %}
 			<br>
@@ -43,7 +91,7 @@ background-size: cover;">
 	<div class="card-body">
 		<h4>Umumiy savollar soni: {{tests.count}} ta</h4>
 <p>Test tugashiga qolgan vaqt: <span id="time">45:00</span></p>
-<p><b>Test ishlovchi: </b>{{request.user.get_full_name}}</p>
+<p><b>Test ishlovchi: </b>{{user.get_full_name}}</p>
 	</div>
 	<div class="card-body">
 		<h5>Oldingi urinishlar ({{old_results.count}})</h5>
@@ -63,7 +111,7 @@ background-size: cover;">
 {% endif %}
 {% if result and not start %}
 <section class="container" style="margin-top:30px;margin-bottom:50px;">
-	<h1 style="margin: 10px 0 30px 0; text-align: center;">Texnologik ta'lim fanidan test</h1>
+	<h1 style="margin: 10px 0 30px 0; text-align: center;">Texnologik ta'lim fanidan test natijasi</h1>
 <div class="row">
 	<div class="col-8 card">
 		<div  class="card-body"> 
@@ -72,12 +120,14 @@ background-size: cover;">
 		<p><span style="font-weight: 600;">Umumiy savollar:</span> {{result.tests.count}}  <span style="font-weight: 500;">To'g'ri javoblar: {{result.is_trues}}</span></p>
 		<p><span><b>Natija:</b> {{result.result}}%</span></p>
 			{% for test in result.tests.all %}
-			<div style="display: flex;"><p style="font-size: 16px; font-weight:600; margin-right:7px">{{forloop.counter}}  </p>  {{test.question.content|safe}}</div>
+			<div style="display: flex;"><p style="font-size: 16px; font-weight:600; margin-right:7px">{{forloop.counter}}  {{test.question.question}}</p> 
+			{% if question.image %} <img src="{{question.image.url}}" alt=""> {% endif %}
+			</div>
 			{% if test.is_true %}<p><i class="fa-solid fa-check" style="color: green;"></i> {{test.answer}}</p>
 
 			{% else %}
-           <p><i class="fa-solid fa-xmark" style="color: red;"></i> {{test.answer}}</p> 
-            <p><b> To'g'ri javob:</b>  <i class="fa-solid fa-check" style="color: gray;"></i> {{test.question.is_true}}  </p>
+            <p><i class="fa-solid fa-xmark" style="color: red;"></i> {{test.answer}}</p> 
+            <p><b> To'g'ri javob:</b>  <i class="fa-solid fa-check" style="color: gray;"></i> {{test.question.ans}}  </p>
             {% endif %}
 			<hr>
 			{% endfor %}
@@ -86,7 +136,7 @@ background-size: cover;">
 	<div class="col-4">
 <div class="card">
 	<div class="card-body">
-		<h4>Umumiy savollar soni: {{tests.count}} ta</h4>
+		<h4>Umumiy savollar soni: {{result.tests.count}}  ta</h4>
 <p>Test tugashiga qolgan vaqt: <span id="time">45:00</span></p>
 <p><b>Test ishlovchi: </b>{{request.user.get_full_name}}</p>
 	</div>

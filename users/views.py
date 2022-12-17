@@ -13,8 +13,6 @@ def log_in(request):
         username = post.get('phone', False)
         password = post.get('password', False)
         user = CustomUser.objects.filter(username=username).first()
-        user.save()
-        print(user)
         if user:
             sign_in = authenticate(request, username=username, password=password)
             if sign_in is not None:
