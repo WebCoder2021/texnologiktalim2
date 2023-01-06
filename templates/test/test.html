@@ -9,7 +9,7 @@ background-size: cover;">
 			<div class="about-content blog-header-content col-lg-12">
 				{% if request.user.is_authenticated %}
 				<h1 class="text-white">
-					Tesh ishlash
+					Test ishlash
 				</h1><br>
 				
 				<form action="" method="GET" style="    display: grid;
@@ -27,7 +27,7 @@ background-size: cover;">
 				</form>
 				{% else %}
 				<h1 class="text-white">
-					Tesh ishlash uchun tizimga kiring
+					Test ishlash uchun tizimga kiring
 				</h1><br>
 				 <a class="primary-btn text-uppercase" href="{% url 'login' %}">Kirish</a>
 				{% endif %}
