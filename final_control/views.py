@@ -21,7 +21,7 @@ def finalcontrol(request):
                         if start:
                             context['start'] = True
                         context['old_results'] = UserControlTestResult.objects.filter(user=user,lesson=lesson)
-                        context['tests'] = FinalControlTest.objects.filter(lesson=lesson).all().order_by('?')[:5]
+                        context['tests'] = FinalControlTest.objects.filter(lesson=lesson).all().order_by('?')[:30]
                 else:
                     context['user_err'] = "Ma'lumotlar xato kiritildi"
                     print(context['user_err'])

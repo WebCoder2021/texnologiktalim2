@@ -2,17 +2,19 @@ from django.contrib import admin
 from .models import *
 from import_export.admin import ImportExportModelAdmin
 
-admin.site.register(Lesson)
 
 from .resources import ControlAdminResource
 
 class ControlDetailAdmin(ImportExportModelAdmin):
-    list_display = ('id','question','ans',)
+    list_display = ('id','question','ans','ans1','ans2','ans3',)
+    # list_editable = ('question','ans','ans1','ans2','ans3',)
     list_filter = ['lesson',]
     save_as = True
     group_fieldsets = True
     resource_class = ControlAdminResource
-
+class LessonAdmin(ImportExportModelAdmin):
+    list_display = ('id','name',)
 admin.site.register(FinalControlTest,ControlDetailAdmin)
+admin.site.register(Lesson,LessonAdmin)
 admin.site.register(ControlTest)
 admin.site.register(UserControlTestResult)
