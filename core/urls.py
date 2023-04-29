@@ -20,7 +20,7 @@ from django.views.static import serve
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('webcoder-bukhara/', admin.site.urls),
     path(r'ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('home.urls')),
     path('module/', include('modul.urls')),
