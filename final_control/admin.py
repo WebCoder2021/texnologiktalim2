@@ -17,4 +17,9 @@ class LessonAdmin(ImportExportModelAdmin):
 admin.site.register(FinalControlTest,ControlDetailAdmin)
 admin.site.register(Lesson,LessonAdmin)
 admin.site.register(ControlTest)
-admin.site.register(UserControlTestResult)
+class UserControlTestResultAdmin(ImportExportModelAdmin):
+    list_display = ('id','user','lesson','result','is_trues')
+    # list_editable = ('question','ans','ans1','ans2','ans3',)
+    list_filter = ['user','lesson']
+    save_as = True
+admin.site.register(UserControlTestResult,UserControlTestResultAdmin)
